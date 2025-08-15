@@ -4,108 +4,63 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@drawable/gradient_background"
+    android:fillViewport="true"
     tools:context=".MainActivity">
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="vertical"
-        android:padding="20dp">
+        android:padding="24dp"
+        android:gravity="center_horizontal">
 
-        <!-- App Header -->
+        <!-- App Header with better spacing -->
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="vertical"
             android:gravity="center"
-            android:layout_marginBottom="24dp">
+            android:layout_marginTop="16dp"
+            android:layout_marginBottom="32dp">
 
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="🎬"
-                android:textSize="48sp"
-                android:layout_marginBottom="8dp" />
+                android:textSize="56sp"
+                android:layout_marginBottom="16dp" />
 
             <TextView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:text="Video Downloader Pro"
-                android:textSize="28sp"
+                android:textSize="32sp"
                 android:textStyle="bold"
                 android:textColor="#FFFFFF"
                 android:gravity="center"
-                android:layout_marginBottom="4dp" />
+                android:layout_marginBottom="8dp"
+                android:fontFamily="sans-serif-medium" />
 
             <TextView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:text="Download videos from any platform"
-                android:textSize="16sp"
+                android:textSize="18sp"
                 android:textColor="#E0E0E0"
-                android:gravity="center" />
+                android:gravity="center"
+                android:fontFamily="sans-serif-light" />
 
         </LinearLayout>
 
-        <!-- URL Input Card -->
+        <!-- URL Input Card with enhanced design -->
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginBottom="16dp"
+            android:layout_marginBottom="20dp"
             android:background="@drawable/card_background"
             android:orientation="vertical"
-            android:padding="20dp"
-            android:elevation="8dp">
-
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:orientation="horizontal"
-                android:gravity="center_vertical"
-                android:layout_marginBottom="12dp">
-
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="🔗"
-                    android:textSize="20sp"
-                    android:layout_marginEnd="8dp" />
-
-                <TextView
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="1"
-                    android:text="Video URL"
-                    android:textSize="18sp"
-                    android:textStyle="bold"
-                    android:textColor="#2C3E50" />
-
-            </LinearLayout>
-
-            <EditText
-                android:id="@+id/etVideoUrl"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:hint="Paste video URL here..."
-                android:inputType="textUri"
-                android:maxLines="3"
-                android:background="@drawable/input_background"
-                android:padding="16dp"
-                android:textColor="#2C3E50"
-                android:textColorHint="#95A5A6"
-                android:textSize="16sp" />
-
-        </LinearLayout>
-
-        <!-- Platform Selection Card -->
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginBottom="16dp"
-            android:background="@drawable/card_background"
-            android:orientation="vertical"
-            android:padding="20dp"
-            android:elevation="8dp">
+            android:padding="24dp"
+            android:elevation="12dp">
 
             <LinearLayout
                 android:layout_width="match_parent"
@@ -117,18 +72,72 @@
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="📱"
+                    android:text="🔗"
+                    android:textSize="24sp"
+                    android:layout_marginEnd="12dp" />
+
+                <TextView
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:text="Video URL"
                     android:textSize="20sp"
-                    android:layout_marginEnd="8dp" />
+                    android:textStyle="bold"
+                    android:textColor="#2C3E50"
+                    android:fontFamily="sans-serif-medium" />
+
+            </LinearLayout>
+
+            <EditText
+                android:id="@+id/etVideoUrl"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:hint="Paste video URL here..."
+                android:inputType="textUri"
+                android:maxLines="3"
+                android:background="@drawable/input_background"
+                android:padding="20dp"
+                android:textColor="#2C3E50"
+                android:textColorHint="#95A5A6"
+                android:textSize="16sp"
+                android:fontFamily="sans-serif"
+                android:minHeight="64dp" />
+
+        </LinearLayout>
+
+        <!-- Platform Selection Card with better layout -->
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="20dp"
+            android:background="@drawable/card_background"
+            android:orientation="vertical"
+            android:padding="24dp"
+            android:elevation="12dp">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:gravity="center_vertical"
+                android:layout_marginBottom="20dp">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="📱"
+                    android:textSize="24sp"
+                    android:layout_marginEnd="12dp" />
 
                 <TextView
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
                     android:text="Supported Platforms"
-                    android:textSize="18sp"
+                    android:textSize="20sp"
                     android:textStyle="bold"
-                    android:textColor="#2C3E50" />
+                    android:textColor="#2C3E50"
+                    android:fontFamily="sans-serif-medium" />
 
             </LinearLayout>
 
@@ -137,31 +146,35 @@
                 android:layout_height="wrap_content"
                 android:orientation="horizontal"
                 android:gravity="center"
-                android:layout_marginBottom="8dp">
+                android:layout_marginBottom="12dp">
 
                 <TextView
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
                     android:text="📹 YouTube"
-                    android:textSize="14sp"
+                    android:textSize="15sp"
                     android:gravity="center"
-                    android:padding="12dp"
+                    android:padding="16dp"
                     android:background="@drawable/platform_youtube"
                     android:textColor="#FFFFFF"
-                    android:layout_margin="4dp" />
+                    android:layout_margin="6dp"
+                    android:fontFamily="sans-serif-medium"
+                    android:elevation="4dp" />
 
                 <TextView
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
                     android:text="🎵 TikTok"
-                    android:textSize="14sp"
+                    android:textSize="15sp"
                     android:gravity="center"
-                    android:padding="12dp"
+                    android:padding="16dp"
                     android:background="@drawable/platform_tiktok"
                     android:textColor="#FFFFFF"
-                    android:layout_margin="4dp" />
+                    android:layout_margin="6dp"
+                    android:fontFamily="sans-serif-medium"
+                    android:elevation="4dp" />
 
             </LinearLayout>
 
@@ -176,97 +189,42 @@
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
                     android:text="📷 Instagram"
-                    android:textSize="14sp"
+                    android:textSize="15sp"
                     android:gravity="center"
-                    android:padding="12dp"
+                    android:padding="16dp"
                     android:background="@drawable/platform_instagram"
                     android:textColor="#FFFFFF"
-                    android:layout_margin="4dp" />
+                    android:layout_margin="6dp"
+                    android:fontFamily="sans-serif-medium"
+                    android:elevation="4dp" />
 
                 <TextView
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
                     android:text="👥 Facebook"
-                    android:textSize="14sp"
+                    android:textSize="15sp"
                     android:gravity="center"
-                    android:padding="12dp"
+                    android:padding="16dp"
                     android:background="@drawable/platform_facebook"
                     android:textColor="#FFFFFF"
-                    android:layout_margin="4dp" />
+                    android:layout_margin="6dp"
+                    android:fontFamily="sans-serif-medium"
+                    android:elevation="4dp" />
 
             </LinearLayout>
 
         </LinearLayout>
 
-        <!-- Quality Selection -->
+        <!-- Quality Selection with enhanced design -->
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginBottom="24dp"
+            android:layout_marginBottom="28dp"
             android:background="@drawable/card_background"
             android:orientation="vertical"
-            android:padding="20dp"
-            android:elevation="8dp">
-
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:orientation="horizontal"
-                android:gravity="center_vertical"
-                android:layout_marginBottom="12dp">
-
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="🎯"
-                    android:textSize="20sp"
-                    android:layout_marginEnd="8dp" />
-
-                <TextView
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="1"
-                    android:text="Video Quality"
-                    android:textSize="18sp"
-                    android:textStyle="bold"
-                    android:textColor="#2C3E50" />
-
-            </LinearLayout>
-
-            <Spinner
-                android:id="@+id/spinnerQuality"
-                android:layout_width="match_parent"
-                android:layout_height="56dp"
-                android:background="@drawable/spinner_background"
-                android:padding="16dp" />
-
-        </LinearLayout>
-
-        <!-- Download Button -->
-        <Button
-            android:id="@+id/btnDownload"
-            android:layout_width="match_parent"
-            android:layout_height="64dp"
-            android:text="🚀 Download Video"
-            android:textSize="18sp"
-            android:textStyle="bold"
-            android:background="@drawable/button_gradient"
-            android:textColor="#FFFFFF"
-            android:layout_marginBottom="16dp"
-            android:gravity="center"
-            android:elevation="8dp" />
-
-        <!-- Progress Card -->
-        <LinearLayout
-            android:id="@+id/progressCard"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:visibility="gone"
-            android:background="@drawable/card_background"
-            android:orientation="vertical"
-            android:padding="20dp"
-            android:elevation="8dp">
+            android:padding="24dp"
+            android:elevation="12dp">
 
             <LinearLayout
                 android:layout_width="match_parent"
@@ -278,9 +236,71 @@
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="⏳"
+                    android:text="🎯"
+                    android:textSize="24sp"
+                    android:layout_marginEnd="12dp" />
+
+                <TextView
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:text="Video Quality"
                     android:textSize="20sp"
-                    android:layout_marginEnd="8dp" />
+                    android:textStyle="bold"
+                    android:textColor="#2C3E50"
+                    android:fontFamily="sans-serif-medium" />
+
+            </LinearLayout>
+
+            <Spinner
+                android:id="@+id/spinnerQuality"
+                android:layout_width="match_parent"
+                android:layout_height="64dp"
+                android:background="@drawable/spinner_background"
+                android:padding="20dp"
+                android:popupBackground="@drawable/card_background" />
+
+        </LinearLayout>
+
+        <!-- Download Button with enhanced design -->
+        <Button
+            android:id="@+id/btnDownload"
+            android:layout_width="match_parent"
+            android:layout_height="72dp"
+            android:text="🚀 Download Video"
+            android:textSize="20sp"
+            android:textStyle="bold"
+            android:background="@drawable/button_gradient"
+            android:textColor="#FFFFFF"
+            android:layout_marginBottom="20dp"
+            android:gravity="center"
+            android:elevation="12dp"
+            android:fontFamily="sans-serif-medium" />
+
+        <!-- Progress Card with enhanced design -->
+        <LinearLayout
+            android:id="@+id/progressCard"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:visibility="gone"
+            android:background="@drawable/card_background"
+            android:orientation="vertical"
+            android:padding="24dp"
+            android:elevation="12dp">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:gravity="center_vertical"
+                android:layout_marginBottom="20dp">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="⏳"
+                    android:textSize="24sp"
+                    android:layout_marginEnd="12dp" />
 
                 <TextView
                     android:id="@+id/tvDownloadStatus"
@@ -288,66 +308,69 @@
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
                     android:text="Downloading..."
-                    android:textSize="16sp"
+                    android:textSize="18sp"
                     android:textStyle="bold"
-                    android:textColor="#2C3E50" />
+                    android:textColor="#2C3E50"
+                    android:fontFamily="sans-serif-medium" />
 
             </LinearLayout>
 
             <ProgressBar
                 android:id="@+id/progressBar"
                 android:layout_width="match_parent"
-                android:layout_height="12dp"
+                android:layout_height="16dp"
                 style="?android:attr/progressBarStyleHorizontal"
                 android:max="100"
                 android:progress="0"
                 android:progressTint="#3498DB"
-                android:progressBackgroundTint="#E0E0E0" />
+                android:progressBackgroundTint="#E0E0E0"
+                android:layout_marginBottom="12dp" />
 
             <TextView
                 android:id="@+id/tvProgressPercent"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="0%"
-                android:textSize="14sp"
+                android:textSize="16sp"
                 android:textColor="#7F8C8D"
                 android:layout_gravity="end"
-                android:layout_marginTop="8dp" />
+                android:fontFamily="sans-serif-medium" />
 
         </LinearLayout>
 
-        <!-- Info Card -->
+        <!-- Info Card with enhanced design -->
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginTop="16dp"
+            android:layout_marginTop="20dp"
             android:background="@drawable/info_card_background"
             android:orientation="vertical"
-            android:padding="20dp"
-            android:elevation="8dp">
+            android:padding="24dp"
+            android:elevation="12dp">
 
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:orientation="horizontal"
                 android:gravity="center_vertical"
-                android:layout_marginBottom="12dp">
+                android:layout_marginBottom="16dp">
 
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="💡"
-                    android:textSize="20sp"
-                    android:layout_marginEnd="8dp" />
+                    android:textSize="24sp"
+                    android:layout_marginEnd="12dp" />
 
                 <TextView
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
                     android:text="How to use"
-                    android:textSize="18sp"
+                    android:textSize="20sp"
                     android:textStyle="bold"
-                    android:textColor="#8B4513" />
+                    android:textColor="#8B4513"
+                    android:fontFamily="sans-serif-medium" />
 
             </LinearLayout>
 
@@ -355,11 +378,17 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:text="1. Copy the video URL from your favorite platform\n2. Paste it in the URL field above\n3. Select your preferred quality\n4. Tap Download Video\n5. Videos will be saved to Downloads folder\n\n✨ Fast downloads with real video extraction"
-                android:textSize="14sp"
+                android:textSize="15sp"
                 android:textColor="#8B4513"
-                android:lineSpacingExtra="4dp" />
+                android:lineSpacingExtra="6dp"
+                android:fontFamily="sans-serif" />
 
         </LinearLayout>
+
+        <!-- Bottom spacing -->
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="24dp" />
 
     </LinearLayout>
 
