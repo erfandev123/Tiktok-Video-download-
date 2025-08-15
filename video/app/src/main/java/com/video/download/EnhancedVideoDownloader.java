@@ -111,14 +111,87 @@ public class EnhancedVideoDownloader {
             info.platform = "youtube";
             info.title = "YouTube_" + videoId;
             
-            // Use working sample video for demonstration
-            info.downloadUrl = getWorkingVideoUrl("youtube");
-            return info;
+            // Try multiple YouTube download services
+            String downloadUrl = getYouTubeDownloadUrl(videoId, quality);
+            if (downloadUrl != null) {
+                info.downloadUrl = downloadUrl;
+                return info;
+            }
+
+            Log.w(TAG, "Could not get YouTube download URL");
+            return null;
 
         } catch (Exception e) {
             Log.e(TAG, "YouTube extraction error", e);
             return null;
         }
+    }
+
+    private String getYouTubeDownloadUrl(String videoId, String quality) {
+        // Try multiple services for better success rate
+        String[] services = {
+            "https://api.vevioz.com/api/button/videos/" + videoId,
+            "https://loader.to/api/button/?url=https://www.youtube.com/watch?v=" + videoId + "&f=" + quality + "p",
+            "https://api.rapidapi.com/youtube-dl/?url=https://www.youtube.com/watch?v=" + videoId,
+            "https://api.snapsave.app/download?url=https://www.youtube.com/watch?v=" + videoId
+        };
+
+        for (String service : services) {
+            try {
+                String downloadUrl = tryYouTubeService(service, videoId, quality);
+                if (downloadUrl != null) {
+                    return downloadUrl;
+                }
+            } catch (Exception e) {
+                Log.e(TAG, "Service failed: " + service, e);
+            }
+        }
+        return null;
+    }
+
+    private String tryYouTubeService(String serviceUrl, String videoId, String quality) {
+        try {
+            URL url = new URL(serviceUrl);
+            HttpURLConnection connection = (HttpURLConnection) url.openConnection();
+            connection.setRequestProperty("User-Agent", "Mozilla/5.0 (Linux; Android 10; SM-G973F) AppleWebKit/537.36");
+            connection.setRequestProperty("Accept", "text/html,application/xhtml+xml,application/xml;q=0.9,*/*;q=0.8");
+            connection.setRequestProperty("Accept-Language", "en-US,en;q=0.5");
+            connection.setRequestProperty("Accept-Encoding", "gzip, deflate");
+            connection.setRequestProperty("Connection", "keep-alive");
+            connection.setRequestProperty("Upgrade-Insecure-Requests", "1");
+            connection.setConnectTimeout(15000);
+            connection.setReadTimeout(15000);
+            
+            if (connection.getResponseCode() == 200) {
+                BufferedReader reader = new BufferedReader(new InputStreamReader(connection.getInputStream()));
+                String line;
+                StringBuilder response = new StringBuilder();
+                
+                while ((line = reader.readLine()) != null) {
+                    response.append(line);
+                    if (response.length() > 100000) break;
+                }
+                reader.close();
+                connection.disconnect();
+                
+                // Parse the response to find download links
+                String html = response.toString();
+                Pattern pattern = Pattern.compile("href=\"([^\"]*\\.mp4[^\"]*)\"");
+                Matcher matcher = pattern.matcher(html);
+                
+                if (matcher.find()) {
+                    String downloadUrl = matcher.group(1);
+                    if (!downloadUrl.startsWith("http")) {
+                        downloadUrl = "https:" + downloadUrl;
+                    }
+                    return downloadUrl;
+                }
+            }
+            
+        } catch (Exception e) {
+            Log.e(TAG, "YouTube service failed: " + serviceUrl, e);
+        }
+        return null;
     }
 
     private VideoInfo extractTikTokInfo(String url, String quality) {
@@ -145,12 +218,69 @@ public class EnhancedVideoDownloader {
                 VideoInfo info = new VideoInfo();
                 info.platform = "tiktok";
                 info.title = "TikTok_" + videoId;
-                info.downloadUrl = getWorkingVideoUrl("tiktok");
+                info.downloadUrl = getTikTokDownloadUrl(expandedUrl);
                 return info;
             }
             
         } catch (Exception e) {
             Log.e(TAG, "TikTok extraction error", e);
+        }
+        return null;
+    }
+
+    private String getTikTokDownloadUrl(String url) {
+        String[] services = {
+            "https://api.tikwm.com/api/?url=" + URLEncoder.encode(url, "UTF-8"),
+            "https://api.snapsave.app/download?url=" + URLEncoder.encode(url, "UTF-8"),
+            "https://api.rapidapi.com/tiktok-download/?url=" + URLEncoder.encode(url, "UTF-8")
+        };
+
+        for (String service : services) {
+            try {
+                String downloadUrl = tryTikTokService(service);
+                if (downloadUrl != null) {
+                    return downloadUrl;
+                }
+            } catch (Exception e) {
+                Log.e(TAG, "TikTok service failed: " + service, e);
+            }
+        }
+        return null;
+    }
+
+    private String tryTikTokService(String serviceUrl) {
+        try {
+            URL url = new URL(serviceUrl);
+            HttpURLConnection connection = (HttpURLConnection) url.openConnection();
+            connection.setRequestProperty("User-Agent", "Mozilla/5.0 (Linux; Android 10; SM-G973F) AppleWebKit/537.36");
+            connection.setRequestProperty("Accept", "application/json");
+            connection.setConnectTimeout(15000);
+            connection.setReadTimeout(15000);
+            
+            if (connection.getResponseCode() == 200) {
+                BufferedReader reader = new BufferedReader(new InputStreamReader(connection.getInputStream()));
+                String line;
+                StringBuilder response = new StringBuilder();
+                
+                while ((line = reader.readLine()) != null) {
+                    response.append(line);
+                }
+                
+                reader.close();
+                connection.disconnect();
+                
+                // Parse JSON response
+                String json = response.toString();
+                Pattern pattern = Pattern.compile("\"play\":\"([^\"]+)\"");
+                Matcher matcher = pattern.matcher(json);
+                
+                if (matcher.find()) {
+                    return matcher.group(1).replace("\\u002F", "/");
+                }
+            }
+            
+        } catch (Exception e) {
+            Log.e(TAG, "TikTok service failed: " + serviceUrl, e);
         }
         return null;
     }
@@ -165,12 +295,63 @@ public class EnhancedVideoDownloader {
                 VideoInfo info = new VideoInfo();
                 info.platform = "instagram";
                 info.title = "Instagram_" + postId;
-                info.downloadUrl = getWorkingVideoUrl("instagram");
+                info.downloadUrl = getInstagramDownloadUrl(url);
                 return info;
             }
             
         } catch (Exception e) {
             Log.e(TAG, "Instagram extraction error", e);
+        }
+        return null;
+    }
+
+    private String getInstagramDownloadUrl(String url) {
+        String[] services = {
+            "https://api.snapsave.app/download?url=" + URLEncoder.encode(url, "UTF-8"),
+            "https://api.rapidapi.com/instagram-download/?url=" + URLEncoder.encode(url, "UTF-8")
+        };
+
+        for (String service : services) {
+            try {
+                String downloadUrl = tryInstagramService(service, url);
+                if (downloadUrl != null) {
+                    return downloadUrl;
+                }
+            } catch (Exception e) {
+                Log.e(TAG, "Instagram service failed: " + service, e);
+            }
+        }
+        return null;
+    }
+
+    private String tryInstagramService(String serviceUrl, String originalUrl) {
+        try {
+            String postUrl = originalUrl + "?__a=1&__d=dis";
+            URL url = new URL(postUrl);
+            HttpURLConnection connection = (HttpURLConnection) url.openConnection();
+            connection.setRequestProperty("User-Agent", "Mozilla/5.0 (Linux; Android 10; SM-G973F) AppleWebKit/537.36");
+            connection.setRequestProperty("Accept", "application/json");
+            connection.setConnectTimeout(15000);
+            connection.setReadTimeout(15000);
+            
+            if (connection.getResponseCode() == 200) {
+                BufferedReader reader = new BufferedReader(new InputStreamReader(connection.getInputStream()));
+                String response = reader.readLine();
+                reader.close();
+                connection.disconnect();
+                
+                // Look for video URL in JSON response
+                if (response != null && response.contains("video_url")) {
+                    Pattern pattern = Pattern.compile("\"video_url\":\"([^\"]+)\"");
+                    Matcher matcher = pattern.matcher(response);
+                    if (matcher.find()) {
+                        return matcher.group(1).replace("\\u0026", "&");
+                    }
+                }
+            }
+            
+        } catch (Exception e) {
+            Log.e(TAG, "Instagram service failed: " + serviceUrl, e);
         }
         return null;
     }
@@ -185,12 +366,56 @@ public class EnhancedVideoDownloader {
                 VideoInfo info = new VideoInfo();
                 info.platform = "facebook";
                 info.title = "Facebook_" + videoId;
-                info.downloadUrl = getWorkingVideoUrl("facebook");
+                info.downloadUrl = getFacebookDownloadUrl(url);
                 return info;
             }
             
         } catch (Exception e) {
             Log.e(TAG, "Facebook extraction error", e);
+        }
+        return null;
+    }
+
+    private String getFacebookDownloadUrl(String url) {
+        try {
+            URL facebookUrl = new URL(url);
+            HttpURLConnection connection = (HttpURLConnection) facebookUrl.openConnection();
+            connection.setRequestProperty("User-Agent", "Mozilla/5.0 (Linux; Android 10; SM-G973F) AppleWebKit/537.36");
+            connection.setRequestProperty("Accept", "text/html,application/xhtml+xml,application/xml;q=0.9,*/*;q=0.8");
+            connection.setRequestProperty("Accept-Language", "en-US,en;q=0.5");
+            connection.setConnectTimeout(15000);
+            connection.setReadTimeout(15000);
+            
+            BufferedReader reader = new BufferedReader(new InputStreamReader(connection.getInputStream()));
+            String line;
+            StringBuilder response = new StringBuilder();
+            
+            while ((line = reader.readLine()) != null) {
+                response.append(line);
+                if (response.length() > 100000) break;
+            }
+            
+            reader.close();
+            connection.disconnect();
+            
+            // Look for video URL in the response
+            String html = response.toString();
+            Pattern pattern = Pattern.compile("\"browser_native_hd_url\":\"([^\"]+)\"");
+            Matcher matcher = pattern.matcher(html);
+            
+            if (matcher.find()) {
+                return matcher.group(1).replace("\\u0025", "%").replace("\\/", "/");
+            }
+            
+            // Alternative pattern
+            pattern = Pattern.compile("\"browser_native_sd_url\":\"([^\"]+)\"");
+            matcher = pattern.matcher(html);
+            if (matcher.find()) {
+                return matcher.group(1).replace("\\u0025", "%").replace("\\/", "/");
+            }
+            
+        } catch (Exception e) {
+            Log.e(TAG, "Facebook download URL failed", e);
         }
         return null;
     }
@@ -201,27 +426,11 @@ public class EnhancedVideoDownloader {
             VideoInfo info = new VideoInfo();
             info.platform = "generic";
             info.title = "Video_" + System.currentTimeMillis();
-            info.downloadUrl = getWorkingVideoUrl("generic");
+            info.downloadUrl = url;
             return info;
         } catch (Exception e) {
             Log.e(TAG, "Generic video extraction error", e);
             return null;
-        }
-    }
-
-    private String getWorkingVideoUrl(String platform) {
-        // These are actual working video URLs that will download and play properly
-        switch (platform) {
-            case "youtube":
-                return "https://commondatastorage.googleapis.com/gtv-videos-bucket/sample/BigBuckBunny.mp4";
-            case "tiktok":
-                return "https://commondatastorage.googleapis.com/gtv-videos-bucket/sample/ElephantsDream.mp4";
-            case "instagram":
-                return "https://commondatastorage.googleapis.com/gtv-videos-bucket/sample/ForBiggerBlazes.mp4";
-            case "facebook":
-                return "https://commondatastorage.googleapis.com/gtv-videos-bucket/sample/ForBiggerEscapes.mp4";
-            default:
-                return "https://commondatastorage.googleapis.com/gtv-videos-bucket/sample/Sintel.mp4";
         }
     }
 
