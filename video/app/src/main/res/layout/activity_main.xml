@@ -38,8 +38,7 @@
                 android:textStyle="bold"
                 android:textColor="#FFFFFF"
                 android:gravity="center"
-                android:layout_marginBottom="8dp"
-                android:fontFamily="sans-serif-medium" />
+                android:layout_marginBottom="8dp" />
 
             <TextView
                 android:layout_width="match_parent"
@@ -47,8 +46,7 @@
                 android:text="Download videos from any platform"
                 android:textSize="18sp"
                 android:textColor="#E0E0E0"
-                android:gravity="center"
-                android:fontFamily="sans-serif-light" />
+                android:gravity="center" />
 
         </LinearLayout>
 
@@ -83,8 +81,7 @@
                     android:text="Video URL"
                     android:textSize="20sp"
                     android:textStyle="bold"
-                    android:textColor="#2C3E50"
-                    android:fontFamily="sans-serif-medium" />
+                    android:textColor="#2C3E50" />
 
             </LinearLayout>
 
@@ -100,7 +97,6 @@
                 android:textColor="#2C3E50"
                 android:textColorHint="#95A5A6"
                 android:textSize="16sp"
-                android:fontFamily="sans-serif"
                 android:minHeight="64dp" />
 
         </LinearLayout>
@@ -136,8 +132,7 @@
                     android:text="Supported Platforms"
                     android:textSize="20sp"
                     android:textStyle="bold"
-                    android:textColor="#2C3E50"
-                    android:fontFamily="sans-serif-medium" />
+                    android:textColor="#2C3E50" />
 
             </LinearLayout>
 
@@ -159,7 +154,6 @@
                     android:background="@drawable/platform_youtube"
                     android:textColor="#FFFFFF"
                     android:layout_margin="6dp"
-                    android:fontFamily="sans-serif-medium"
                     android:elevation="4dp" />
 
                 <TextView
@@ -173,7 +167,6 @@
                     android:background="@drawable/platform_tiktok"
                     android:textColor="#FFFFFF"
                     android:layout_margin="6dp"
-                    android:fontFamily="sans-serif-medium"
                     android:elevation="4dp" />
 
             </LinearLayout>
@@ -195,7 +188,6 @@
                     android:background="@drawable/platform_instagram"
                     android:textColor="#FFFFFF"
                     android:layout_margin="6dp"
-                    android:fontFamily="sans-serif-medium"
                     android:elevation="4dp" />
 
                 <TextView
@@ -209,7 +201,6 @@
                     android:background="@drawable/platform_facebook"
                     android:textColor="#FFFFFF"
                     android:layout_margin="6dp"
-                    android:fontFamily="sans-serif-medium"
                     android:elevation="4dp" />
 
             </LinearLayout>
@@ -247,8 +238,7 @@
                     android:text="Video Quality"
                     android:textSize="20sp"
                     android:textStyle="bold"
-                    android:textColor="#2C3E50"
-                    android:fontFamily="sans-serif-medium" />
+                    android:textColor="#2C3E50" />
 
             </LinearLayout>
 
@@ -257,8 +247,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="64dp"
                 android:background="@drawable/spinner_background"
-                android:padding="20dp"
-                android:popupBackground="@drawable/card_background" />
+                android:padding="20dp" />
 
         </LinearLayout>
 
@@ -274,8 +263,7 @@
             android:textColor="#FFFFFF"
             android:layout_marginBottom="20dp"
             android:gravity="center"
-            android:elevation="12dp"
-            android:fontFamily="sans-serif-medium" />
+            android:elevation="12dp" />
 
         <!-- Progress Card with enhanced design -->
         <LinearLayout
@@ -310,8 +298,7 @@
                     android:text="Downloading..."
                     android:textSize="18sp"
                     android:textStyle="bold"
-                    android:textColor="#2C3E50"
-                    android:fontFamily="sans-serif-medium" />
+                    android:textColor="#2C3E50" />
 
             </LinearLayout>
 
@@ -333,8 +320,7 @@
                 android:text="0%"
                 android:textSize="16sp"
                 android:textColor="#7F8C8D"
-                android:layout_gravity="end"
-                android:fontFamily="sans-serif-medium" />
+                android:layout_gravity="end" />
 
         </LinearLayout>
 
@@ -369,8 +355,7 @@
                     android:text="How to use"
                     android:textSize="20sp"
                     android:textStyle="bold"
-                    android:textColor="#8B4513"
-                    android:fontFamily="sans-serif-medium" />
+                    android:textColor="#8B4513" />
 
             </LinearLayout>
 
@@ -380,8 +365,7 @@
                 android:text="1. Copy the video URL from your favorite platform\n2. Paste it in the URL field above\n3. Select your preferred quality\n4. Tap Download Video\n5. Videos will be saved to Downloads folder\n\n✨ Fast downloads with real video extraction"
                 android:textSize="15sp"
                 android:textColor="#8B4513"
-                android:lineSpacingExtra="6dp"
-                android:fontFamily="sans-serif" />
+                android:lineSpacingExtra="6dp" />
 
         </LinearLayout>
 
