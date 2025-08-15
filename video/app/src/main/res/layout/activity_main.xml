@@ -362,7 +362,7 @@
             <TextView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="1. Copy the video URL from your favorite platform\n2. Paste it in the URL field above\n3. Select your preferred quality\n4. Tap Download Video\n5. Videos will be saved to Downloads folder\n\n✨ Fast downloads with real video extraction"
+                android:text="1. Copy the video URL from your favorite platform\n2. Paste it in the URL field above\n3. Select your preferred quality\n4. Tap Download Video\n5. Videos will be saved to Downloads folder\n\n✨ Demo Version: This app downloads sample videos to demonstrate functionality. For real video extraction, API integration is required."
                 android:textSize="15sp"
                 android:textColor="#8B4513"
                 android:lineSpacingExtra="6dp" />

@@ -175,7 +175,7 @@ public class MainActivity extends Activity {
         try {
             // Show user-friendly message about the platform being downloaded
             String platform = detectPlatformFromUrl(url);
-            showToast("Downloading " + platform + " video...");
+            showToast("Downloading " + platform + " video... (Demo version with sample videos)");
             videoDownloader.downloadVideo(url, quality);
         } catch (Exception e) {
             errorHandler.handleError(e, "Starting download");
